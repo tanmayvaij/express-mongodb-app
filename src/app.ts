@@ -2,40 +2,46 @@ import express from "express";
 import { config } from "dotenv";
 import cors from "cors";
 import { connectToDatabase } from "./database";
+import path from "path";
 import { User } from "./models/User.model";
 
 config();
 
 const app = express();
 
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
 app.use(cors());
 
+app.use(express.urlencoded({ extended: true }))
+
 app.get("/", async (req, res) => {
+  const users = await User.find({}, {}, {});
 
-  try {
+  console.log(users);
 
-    const user = await User.findOne({ firstName: "Tanmay" });
-    res.json(user);
+  res.render("home", { users });
+});
 
-  } 
-  catch (err) {
+app.post("/", async (req, res) => {
 
-    console.log(err);
+  console.log(req.body);
+  
+  const { firstName, lastName, email } = req.body;
 
-    res.json({
-      err: "Error occurred",
-    });
-  }
+  if (!firstName || !lastName || !email) return res.render("/");
+
+  await User.create({
+    firstName,
+    lastName,
+    email,
+  });
+
+  res.redirect("/");
 });
 
 app.listen(5000, async () => {
   connectToDatabase();
-
-  await User.create({
-    firstName: "Tanmay",
-    lastName: "Vaij",
-    email: "tanmayvaij22@gmail.com",
-  });
-
   console.log("Server started successfully");
 });
