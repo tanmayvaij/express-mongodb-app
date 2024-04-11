@@ -16,18 +16,13 @@ app.use(cors());
 
 app.use(express.urlencoded({ extended: true }))
 
-app.get("/", async (req, res) => {
+app.get("/", async (_, res) => {
   const users = await User.find({}, {}, {});
-
-  console.log(users);
-
   res.render("home", { users });
 });
 
 app.post("/", async (req, res) => {
 
-  console.log(req.body);
-  
   const { firstName, lastName, email } = req.body;
 
   if (!firstName || !lastName || !email) return res.render("/");
