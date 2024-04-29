@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Express MongoDB App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body>
+    <div class="flex items-center justify-center flex-col p-10 space-y-8 ">
+
+      <form method="post" action="/">
+        <input
+          class="p-3 rounded-sm border w-72"
+          placeholder="first name"
+          type="text"
+          name="firstName"
+        />
+        <input
+          class="p-3 rounded-sm border w-72"
+          placeholder="last name"
+          type="text"
+          name="lastName"
+        />
+        <input
+          class="p-3 rounded-sm border w-72"
+          placeholder="email"
+          type="email"
+          name="email"
+        />
+        <button
+          class="px-6 py-3 rounded-sm text-white bg-blue-500 hover:bg-blue-600 "
+          type="submit"
+        >
+          Add user
+        </button>
+      </form>
+
+      <div class="">
+        <table class="w-[1000px]">
+          <th class="border text-left p-2">First name</th>
+          <th class="border text-left p-2">Last name</th>
+          <th class="border text-left p-2">Email</th>
+          <tr>
+            <% users.forEach(user => { %>
+            <td class="border p-2"><%- user.firstName %></td>
+            <td class="border p-2"><%- user.lastName %></td>
+            <td class="border p-2"><%- user.email %></td>
+            <% }) %>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  </body>
+</html>
