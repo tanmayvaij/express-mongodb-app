@@ -37,6 +37,6 @@ app.post("/", async (req, res) => {
 });
 
 app.listen(5000, async () => {
-  connectToDatabase();
+  await connectToDatabase();
   console.log("Server started successfully");
 });

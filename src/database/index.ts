@@ -1,11 +1,10 @@
 import { connect } from "mongoose";
 
-export const connectToDatabase = () => {
-  connect(process.env.MONGO_URI!)
-    .then(() => {
-      console.log("Connected to database successfully");
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+export const connectToDatabase = async () => {
+  try {
+    await connect(process.env.MONGO_URI as string);
+    console.log("connected to database successfully");
+  } catch (error) {
+    console.log(error);
+  }
 };
